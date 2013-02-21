@@ -1,0 +1,100 @@
+---
+layout: default
+title: Tools to get your site faster - Sitespeed.io 
+description: Your site score low on sitespeed, what should you do? Here's a collection of good tools to use to get your site faster.
+author: Peter Hedenskog
+keywords: wpo, tools, sitespeed.io
+nav: wpo-tools
+---
+<div class="page-header">
+  <h1>WPO tools - How to get your site faster</h1>
+</div>
+
+  <div class="row-fluid">
+    <div class="span12">
+      <p>
+        So you got a bad score & your site loads slow, what to do then? Here's a collection of tools to speed up your site:
+        
+        <ul>
+          <li><a href="#analyze">Tools to analyze your web page</a></li>
+          <li><a href="#images">Images</a></li>
+          <li><a href="#cssimages">CSS images</a></li>
+          <li><a href="#combine">Combine javascript and css files</a></li>
+          <li><a href="#mobile">Mobile</a></li>
+          <li><a href="#javascript">Asynchronously load javascript</a></li>
+          <li><a href="#backend">Minimize backend time</a></li>
+          <li><a href="#othertools">Other nice tools</a></li>
+
+        </ul>
+
+        <div class="section" id="analyze">
+          <h2>Analyze your website</h2>
+          <p>Before you start changes things, you need to get metrics, so you can compare what you actually do. There are a lot of tools out there that you can use to analyze a page performance. The best one is <a href="http://www.webpagetest.org/" target="_blank">http://www.webpagetest.org/</a>, created by <a href="http://blog.patrickmeenan.com/" target="_blank">Patrick Meenan</a> and supported by Google. With this tool you get everything you need; waterfall charts form all over the world, for different devices. It is amazing that a tool like this exist and that it is free.</p>
+          <p>The other two great tools (apart from sitspeed.io ;)) are <a href="http://www.yslow.org" target="_blank">Yslow</a> (originally developed by Yahoo, created by Steve Souders and now maintained by Marcel Duran) and Google:s <a href="https://developers.google.com/speed/pagespeed/insights" target="_blank">Page Speed Insights</a>.</p>
+
+
+          <p>Other free nice tools to use is <a href="http://www.showslow.com/" target="_blank">http://www.showslow.com/</a>, <a href="http://gtmetrix.com/" target="_blank">http://gtmetrix.com/</a> and <a href="http://tools.pingdom.com/fpt/" target="_blank">http://tools.pingdom.com/fpt/</a> (wow, a Swedish company that cares about speed!).</p>
+        </div>
+
+
+        <div class="section" id="images">
+        <h2>Images</h2>
+        <p>
+        One thing that you really want to avoid, is to deliver things to the end user that isn't necessary, and you don't want to deliver images that are larger in size than necessary.
+        My favorite tool is <a href="http://imageoptim.com/" target="_blank">ImageOptim</a> (Mac only), that really can decrease the size and still have good quality. If you don't use a Mac, you can always use <a href="http://smush.it" target="_blank">http://smush.it</a>, a great online tool to decrease the size of your images. Also remember to use progressive Jpegs, read <a href="http://calendar.perfplanet.com/2012/progressive-jpegs-a-new-best-practice/" target="_blank">this</a> great article by Ann Robson.
+        </p>
+        </div>
+
+         <div class="section" id="cssimages">
+        <h2>CSS images</h2>
+        <p>
+        Everybody knows it but not everyone do it, create a CSS Sprite that contains all of your CSS images in one file (check out <a href="https://play.google.com/static/client/images/4233848707-sprites.png" target="_blank">this</a> sprite that Google uses in it Play store). 
+        </p>
+        <p>I like two online tools that helps you creates your sprites: <a href="http://spriteme.org/" target="_blank">http://spriteme.org/</a> and <a href="http://www.spritecow.com/" target="_blank">http://www.spritecow.com/</a>
+        </p>
+        </div>
+
+         <div class="section" id="combine">
+        <h2>Combine javascript and css files into as few files as possible</h2>
+        <p>One things is for sure, you don't want to combine the files by hand, you want a tool that let you keep the files separated when developing and then combine for your production environment.</p>
+
+        <p><strong>Wordpress</strong> users should use <a href="http://wordpress.org/extend/plugins/w3-total-cache/" target="_blank">W3 Total Cache</a> (that is almost the only thing you need to speed up your performance, fantastic plugin for Wordpress) or <a href="http://omninoggin.com/wordpress-plugins/wp-minify-wordpress-plugin/" target="_blank">WP Minify</a>.</p> 
+
+        <p>If you are using <strong>Java</strong>, the maven plugin <a href="https://github.com/samaxes/minify-maven-plugin" target="_blank">minify-maven-plugin</a> is good, you need to add a couple of other plugins to make it convenient to use, you can check out an example <a href="https://github.com/soulgalore/maven-minify-sample">here</a>.  
+        </p>
+
+        <p>If you are using <strong>Jekyll</strong>, you can do it either by yourself creating one include file each (one for CSS and one for JS) or you can use a plugin: <a href="https://github.com/moshen/jekyll-asset_bundler" target="_blank">Jekyll asset bundler</a> and compress them by <a href="https://github.com/stereobooster/jekyll-press" target="_blank">https://github.com/stereobooster/jekyll-press</a>. 
+        </p>
+        </div>
+
+        <div class="section" id="mobile">
+          <h2>Mobile</h2>
+          <p>Before you start doing anything for mobile, I think reading this article <a href="http://calendar.perfplanet.com/2012/make-your-mobile-pages-render-in-under-one-second/" target="_blank">Make your mobile pages render in under one second</a> by Bryan McQuade is the best start. Focus on what is really important, the speed :)</p>
+          <p>Testing things on mobile devices is a little harder, Steve Souders has compiled the best <a href="http://stevesouders.com/mobileperf/mobileperfbkm.php" target="_blank">bookmarklet</a> for testing mobile performance.</p> 
+          <p>Not performance related but I really like <a href="http://quirktools.com/screenfly" target="_blank">http://quirktools.com/screenfly</a>, a tool where you can easy change the view port, to see how your site looks at different devices.</p>
+	  <p>Another cool tool is <a href="https://github.com/dmolsen/Throttle" target="_blank">Throttle</a> that helps you test how your webapp performs on poor network connections.</p>
+        </div>
+
+          <div class="section" id="javascript">
+
+            <h2>Asynchronously load javascript</h2>
+            <p>The number one most important thing with speed & javascript is to load it asynchronously. You can do that yourself or use a javascript loader (and make sure the loader also is loaded asynchrounsly). Here is a spreadsheet of <a href="https://docs.google.com/spreadsheet/lv?key=0Aqln2akPWiMIdERkY3J2OXdOUVJDTkNSQ2ZsV3hoWVE" target="_blank"> javascript loaders</a> and an example of a good javascript loader is <a href="http://stevesouders.com/controljs/" target="_blank">ControlJS</a>. If you really want to optimize (and you want to do that) then <a href="http://www.phpied.com/non-onload-blocking-async-js/" target="_blank">load your js async and non onload blocking</a>!
+
+            </p>
+          </div>
+
+          <div class="section" id="backend">
+            <h2>Minimize backend time</h2>
+            One really important thing is to minimize the backend time on your server. You do that by caching! Cache cache cache. There are 1000 of different ways of doing that, depending on your technology stack, but before you do that, test the application to see what backend time you have. One way to do it is to check your <strong>Time To First Byte</strong>. You do that with <a href="http://sitespeed.io">sitespeed.io</a>, <a href="http://www.webpagetest.org" target="_blank">webpagetest.org</a> or use a specific tool like
+              <a href="http://www.bytecheck.com/" target="_blank">http://www.bytecheck.com/</a>.
+            </p>
+          </div>
+
+            <div class="section" id="othertools">
+            <h2>Other nice tools</h2>
+            <p>
+              If you need a to check the HTTP headers online, use <a href="http://redbot.org/" target="_blank">http://redbot.org/</a>. If you need statistics for how the most popular sites are doing, check out <a href="http://httparchive.org/" target="_blank">http://httparchive.org/</a>. Also checkout <a href="http://www.stevesouders.com/blog/2012/10/09/webperfdays-performance-tools/">this</a> great list of web performance tools on Steve Souders blog.
+          </div>
+  </div>
+</div>
+

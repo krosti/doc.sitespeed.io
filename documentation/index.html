@@ -1,0 +1,574 @@
+---
+layout: default
+title: Documentation - Sitespeed.io
+description: Here's the documentation of sitespeed.io, the workflow, how you run it and how you extend it as a developer.
+keywords: documentation, workflow, sitespeed.io, jenkins, travis
+author: Peter Hedenskog
+nav: documentation
+image: http://sitespeed.io/img/sitespeed-twitter.gif
+twitterdescription: Add your own rules to sitespeed.io is easy, because of the use of Yslow as the rule engine. Read here how you do it!
+---
+<div class="page-header">
+  <h1>
+    Documentation
+  </h1>
+</div>  
+
+<ol class="toc">
+<li  class="toc"><a href="#workflow">The workflow</a></li>
+  <ul>
+    <li  class="toc"><a href="#summarypage">Site summary page</a></li>
+    <li  class="toc"><a href="#pages">Detailed site report</a></li>
+    <li class="toc"><a href="#page">Full page analyzis</a></li>
+  </ul>
+  <li class="toc"><a href="#run">How to run sitespeed.io</a></li>
+  <li class="toc"><a href="#junit">Generating the JUnit XML for continous integration</a></li>
+ <ul>
+  <li class="toc"><a href="#jenkins">Jenkins integration</a></li>
+  <li class="toc"><a href="#travis">Travis integration</a></li>
+  </ul>
+  <li class="toc"><a href="#developers">Developers</a></li>
+  <ul>
+     <li class="toc" style="word-wrap: break-word;"><a href="#dependencies">Dependencies/components</a></li>
+     <li class="toc"><a href="#feature">Create a new feature request</a></li>
+     <li class="toc"><a href="#bug">Report a bug</a></li>
+     <li class="toc"><a href="#addrule">Add your own rules</a></li>
+ </ul>
+</ol>
+
+      
+   
+<div class="section">
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="page-header">
+      <h2 id="workflow">Workflow</h2>
+      </div>
+      <p>This is what will happen when you run sitespeed.io, first start the script:
+	</p>
+        <pre>$ ./sitespeed.io -u http://www.cybercom.com/en/</pre>
+          <p>
+        The script will log what is happening, it will look  something like this:
+	</p>
+    <pre>
+$ Will crawl from start point http://www.cybercom.com/en/ with User-Agent Mozilla/6.0 and viewport 1280x800 with crawl depth 1 ... this can take a while
+$ Fetched 20 pages
+$ Analyzing http://www.cybercom.com/Investor--Press/
+$ Analyzing http://www.cybercom.com/Solutions--services/
+$ ...
+$ Create result.xml
+$ Create the pages.html
+$ Create the summary index.html
+$ Create the assets.html
+$ Create the rules.html
+$ Finished
+</pre>
+
+      <p>
+        It will create the following directory structure (the first directory is named after the site you are testing and when the test was executed):
+	</p>
+        <pre>
+sitespeed-result
+|
+`--sitespeed-www.cybercom.com-2013-01-02-22-36-36
+   |
+   | -- css
+   |
+   | -- data
+   |
+   | -- img
+   | -- (images)
+   |
+   | -- js
+   |
+   | -- pages
+   |
+   | -- pages.html
+   | -- rules.html
+   | -- assets.html
+   | -- (errorurls.html)
+   ` -- index.html
+</pre>
+
+      <p>
+        The <strong>data</strong>
+        directory hold all xml files that's the result from the analyze (the raw data). <strong>Pages</strong>
+        hold the result (as HTML) for all unique page tests. The
+        <strong>pages.html</strong>
+        is all pages data, summarized in one page.  The
+        <strong>index.html</strong>
+        is the summary page, holding information on a high level.
+        <strong>rules.html</strong> is a presentation of the rules used to calculate the score for a page. And the images folder is created if you choose to output the summary as png:s. The <strong>errorurls.html</strong> shows the list of url:s that couldn't be fetched (the file will not exist if all url:s could be collected).
+      	The <strong>assets.html</strong> shows the top 200 most used assets across the pages.
+      </p>
+      <p>The workflow is like this:</p>
+      <p class="image">
+        <img class="center" alt="sitespeed workflow" src="/img/sitespeed.io-1.6-workflow.png"/>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="row-fluid">
+    <div class="span12">
+      <h2 id="summarypage">Site summary page</h2>
+      <p>
+        Sitespeed.io creates three different kind of outputs. The summary page is kind of executive summary page where green is good, yellow means that you should look into it and red is bad, sometimes really bad. The page show a summary of best practices for good web site performance.
+      </p>
+      <p class="image">
+        <img src="/img/summary-1.7.jpg" alt="sitespeed summary page" class="img-polaroid"/>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="row-fluid">
+    <div class="span12">
+
+      <h2 id="pages">Detailed site report</h2>
+      <p>
+        The detailed site report page shows data collected for each page. At the moment the following data is showed: Number of javascript/ccs/images/cssimages & font files, total requests, requests missing expire date, the size of the page, the total size of the page (including all assets), the load time of the page, time to first byte, number of single point of failures (and a link to http://webpagetest.org with the assets domains as SPOF, meaning you can easy record a SPOF video) number of javascript loaded synchronously in head and the sitespeed score
+        . Click the magnifier to see the response header of the page, and click the URL, to see all the specific collected page data.
+      </p>
+      <p class="image">
+        <img src="/img/pages-1.7.jpg" alt="sitespeed pages page" class="img-polaroid"/>
+
+      </p>
+
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="row-fluid">
+    <div class="span12">
+
+      <h2 id="pages">Most used assets report</h2>
+      <p>
+        The most used assets report show you the most used assets (a.k.a which asset should you start to change for most bang for the money).
+        You wil see the following for each asset: the type, the time since last modification, the cache time, the weight and the number of times the asset has been used.</p>
+      <p class="image">
+        <img src="/img/assets-1.6.jpg" alt="sitespeed most used asset page" class="img-polaroid"/>
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="section">
+  <div class="row-fluid">
+    <div class="span12">
+      <h2 id="page">Full page analyzis</h2>
+      <p>
+      Every page that is tested, also get a corresponding html page, where all data is shown. You will see all rules that are below 100, all assets on the page together with the response headers for that asset (click on the magnifier). This example images doesn't show everything, checkout the <a href="/example/">examples</a> section to see how it looks like. 
+    </p>
+    <p class="image">
+      <img src="/img/page-1.6.jpg" alt="sitespeed page page" class="img-polaroid"/>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+<div class="row-fluid">
+  <div class="span12">
+    <div class="page-header">
+    <h2 id="run">How to run sitespeed.io</h2>
+  </div>
+<p>You have the following options running sitespeed:</p>
+<pre>
+usage: ./sitespeed.io options
+
+OPTIONS:
+   -h      Help
+   -u      The start url of the crawl with the format of http[s]://host[:port][/path/]. Use this or use the -f file option.
+   -f      The path to a plain text file with one url on each row. These URL:s will be used instead crawling.
+   -d      The crawl depth, default is 1 [optional]
+   -c      Crawl only on this path [optional]
+   -s      Skip urls that contains this in the path [optional]
+   -p      The number of processes that will analyze pages, default is 5 [optional]
+   -m      The memory heap size for the java applications, default is 1024 Mb [optional]
+   -o      The output format, always output as html but you can add images (img) [optional]
+   -r      The result base directory, default is sitespeed-result [optional]
+   -z      Create a tar zip file of the result files, default is false [optional]
+   -x      The proxy host & protocol: proxy.soulgalore.com:80 [optional] 
+   -t      The proxy type, default is http [optional]
+   -a      The user agent, default is "Mozilla/6.0" [optional]
+   -v      The view port, the page viewport size WidthxHeight, like 400x300, default is 1280x800 [optional] 
+   -y 	   The compiled yslow file, default is dependencies/yslow-3.1.5-sitespeed.js [optional]
+   -l 	   Which ruleset to use, default is the latest sitespeed.io version [optional]  
+</pre>
+
+    <h3>Standard (fetching one level of pages)</h3>
+    <p>
+      By default, sitespeed will crawl all the links that exist on the page, and fetch the pages that are on the same domain as the start url:
+    </p>
+    <pre>$ ./sitespeed.io -u http://yoursite.com</pre>
+    <p>
+      Or of course, if you want to start the test on a specific page, you use that url:
+      </p>
+      <pre>$ ./sitespeed.io -u http://yoursite.com/my/path</pre>
+
+    <h3>Feeding sitespeed with a urls in a text file</h3>  
+    The urls needs to be one on each row, looking like this:
+    <pre>
+http://www.yoursite.com/path/
+http://www.yoursite.com/my/really/important/page/
+http://www.yoursite.com/where/we/are/
+...
+    </pre>
+    And then you feed the text file to sitespeed.io:
+    <pre>$ ./sitespeed.io -f myurls.txt</pre>
+
+    <h3>Fetching more than one level of links</h3>
+    <p>Add the depth parameter <strong>d</strong>, that will make sitespeed crawl for that depth:</p>
+    <pre>$ ./sitespeed.io -u http://yoursite.com -d 2</pre>
+    <h3>Follow only specific path</h3>
+    <p>Add the path you want to follow, meaning only urls containing the passed value will be analyzed:</p>
+    <pre>$ ./sitespeed.io -u http://yoursite.com  -c /the/path/</pre>
+    <h3>Fetching not url's that contains</h3>
+    <p>Add the keyword of what you want to skip, useful if you want to exclude parts of an site:</p>
+    <pre>$ ./sitespeed.io -u http://yoursite.com  -s /monkey/</pre>
+    <h3>Changing the number of processes analyzing the site</h3>
+    <p>If you analyze a large web site, the analyze can take some time; then increase the number of processes that analyzes the site (default number of processes is five):</p>
+    <pre>$ ./sitespeed.io -u http://yoursite.com  -p 10</pre>
+    
+    <h3>Output as images</h3>
+    <p>You can also output the result of the analyze as png:s (the html converted to png:s):</p>
+    <pre>$ ./sitespeed.io -u http://yoursite.com  -o img</pre>
+    
+    <h3 id="changeresult">Change the result directory</h3>
+    <p>The result files will by default be created in a directory named <i>sitespeed-result</i> in the home directory of the sitespeed script. You can change that if you want your files in another place.</p>
+    <pre>$ ./sitespeed.io -u http://yoursite.com  -r /place/the/files/here</pre>
+    
+    <h3 id="tar">Tar zip all the result files</h3>
+    <p>If you want all the result files tar zipped into one file, you do that like this:</p>
+    <pre>$ ./sitespeed.io -u http://yoursite.com/ -z true</pre>
+    
+    <h3 id="heap">Heap size for the Java applications</h3>
+    <p>If you are analyzing a very large site, it is possible that you need to increase the memory for the java application, or if you run the test on a machine with low memory, you can change the heap size with the <i>m</i> parameter:</p>
+    <pre>$ ./sitespeed.io -u http://yoursite.com/ -m 512</pre>
+
+    <h3 id="proxy">Run  behind a proxy</h3>
+    <p>Behind a proxy you can run like this:</p>
+    <pre>$ ./sitespeed.io -u http://yoursite.com/ -a yourproxy.com:portnumber</pre>
+
+    <h3 id="useragent">Set the user agent and view port</h3>
+    <p>Test as Chrome with a large screen:</p>
+    <pre>$ ./sitespeed.io -u http://yoursite.com/ -g Mozilla/5.0 -v 2560x1440</pre>
+
+
+</div>
+</div>
+</div>
+
+<div class="section">
+  <div class="row-fluid">
+    <div class="span12">
+      <h2 id="junit">Generating the JUnit XML for continuous integration</h2>
+       <p>Sitespeed can output <em>junit.xml</em> that works perfect with your continuous integration tool. Jenkins, Bamboo and others support it out of the box.
+        To generate the xml, you need to run the script <strong>sitespeed-junit.io</strong> after the normal script (it will take the latest created sitespeed analyze and parse it to the junit.xml).
+        The junit script takes the following parameters:</p>
+        <pre>
+OPTIONS:
+-h      Help
+-r      The result base directory, default is sitespeed-result [optional]
+-l      The page score limit. Below this page score it will be a failure. Default is 90. [optional]
+-a      The average score limit for all tested pages, below this score it will be a failure. Default is 90. [optional]       
+-s      Skip these tests. A comma separeted list of the key name of the tests, for example "ycsstop,yjsbottom" [optional] 
+        </pre> 
+   <p><em>Note:</em> the key name used when skip the tests, is viewed in the the Jenkins result, check the title for each page, the key is the name before the colon, for example <em>ynumreq: Make fewer HTTP requests</em> where <strong>ynumreq</strong> is the key.
+  </p>
+     </div>
+ </div>
+</div>
+
+
+<div class="section">
+  <div class="row-fluid">
+    <div class="span12">
+      <h2 id="jenkins">Jenkins integration</h2>
+     <a href="http://jenkins-ci.org/" target="_blank">Jenkins</a> is a great open source continuous integration server, that you guys already know.
+   <p>
+    To get sitespeed.io up and running, you need to make sure that the user in <strong>Jenkins</strong> that runs the job, have <a>PhantomJs</a> in the path and
+    have read/write access to the directory where you have sitespeed. When you have that, you are ready to set it up.
+  </p>
+  <p>
+    In Jenkins, add a new <em>Execute shell</em> and add the two script on one line each. The first one is the standard script, and the second one will create the junit.xml, make sure to pipe the output to a file, so Jenkins can find it.</p>
+        <pre>
+/Users/peter/tmp/sitespeed.io -u http://yoursite.com
+/Users/peter/tmp/sitespeed-junit.io > /Users/Shared/Jenkins/Home/workspace/sitespeed.io/junit-cc.xml
+        </pre>
+        <p>Then add a <em>Post-build Action</em> that will publish the JUnit test result report, and choose the output file from the script. In Jenkins, it will look something like this:
+      </p>
+        <p class="image">
+        <a href="jenkins-config.png"><img src="jenkins-config.png" alt="Configuration Sitespeed.io for Jenkins" class="img-polaroid"/></a>
+      </p>
+
+      <p>Each sitespeed test, is a JUnit testcase, each page tested is a testsuite and the whole test bundled as testsuites. The cool thing is that you will get a good overview: you can see the failures for all pages, and you can also drill down the result page by page. The result of all the tests for all pages will look like this.
+
+      </p>
+       <p class="image">
+       <a href="jenkins-test-all-pages.jpg"><img src="jenkins-test-all-pages.jpg" alt="All the tested pages" class="img-polaroid"/></a>
+      </p>
+
+      <p>
+        And for a specific page, the result will be like this:
+       <p class="image">
+        <a href="jenkins-tests-for-one-page-full.jpg"><img src="jenkins-tests-for-one-page.jpg" alt="One full test" class="img-polaroid"/></a>
+      </p>
+
+      If you need help get this up & running, ping me on <a href="https://twitter.com/SiteSpeedio" target="_blank">Twitter</a>.
+    </div>
+  </div>
+
+<div class="section">
+  <div class="row-fluid">
+    <div class="span12">
+      <h2 id="travis">Travis integration</h2>
+      <p>
+      <a href="https://travis-ci.org/" target="_blank">Travis</a> doesn't have a built in support for JUnit XML right now (read this  
+      <a href="https://github.com/travis-ci/travis-ci/issues/239" target="_blank">issue</a> about the plan for supporting it).
+      But you can of course use it and break the build if you have failures. Do like this.
+      </p>
+      
+      <p>Setup your <strong>.travis.yml</strong> file like this (before you run the <em>before_script</em> you need to start your server (that is not included), in this example the server runs on http://127.0.0.1:8080/.
+      <pre>
+before_install:
+- sudo apt-get update
+- sudo apt-get install xsltproc
+        
+before_script:
+- "./sitespeed.io/sitespeed.io -u http://127.0.0.1:8080/"
+- "./sitespeed.io/sitespeed-junit.io > junit.xml"
+
+script: ./verify-junit.sh junit.xml
+</pre>
+
+The <strong>verify-junit.sh</strong> script is a simple script that fails if it find the failure tag (but of course you can do more cool things if you want, 
+this is just a super simple example):
+<pre>
+#! /bin/bash
+JUNIT_XML=$1
+ if grep -c "</failure>" "$JUNIT_XML" > 0; 
+ then
+   FAILURES=$(grep -o "</failure>" $JUNIT_XML | wc -l)
+   echo "We have a $FAILURES failure(s)"
+   cat $JUNIT_XML
+   exit 1;
+ else
+ 	echo 'No failures from sitespeed.io'
+ fi   
+</pre>      
+      
+      </div>
+ </div>
+</div>
+
+
+<div class="section">
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="page-header">
+      <h2 id="developers">Developers</h2>
+    </div>
+    <p style="word-wrap: break-word;">
+    You can fork the project at <a href="https://github.com/soulgalore/sitespeed.io" target="_blank">https://github.com/soulgalore/sitespeed.io</a> and create 
+    your own version or contribute to the existing one. There are two branches: <strong>master</strong> is the latest release. No development happens in master. The other branch is <strong>versionnumber-wip</strong>, meaning <strong>2.0-wip</strong> that are the branch that is work in progress, and the next coming release.  
+    </p>
+
+    </div>
+</div>
+</div>
+
+<div class="section">
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="page-header">
+      <h2 id="dependencies" style="word-wrap: break-word;">Dependencies/Components</h2>
+    </div>
+      <p>
+        Here are the following components & dependencies of sitespeed:
+      </p>
+      <dl class="dl-horizontal">
+      <dt>Yslow</dt> 
+      <dd>Sitespeed.io uses the rule engine of <a href="http://yslow.org" target="_blank">Yslow</a>, because it is great! Yslow was originally developed by Yahoo and now maintained by <strong>Marcel Duran</strong>, a rule engine & browser plugin created to test your web page against <a href="http://yslow.org/#web_performance_best_practices_and_rules" target="_blank">best practices rules</a>. The version used is the <a href="https://github.com/marcelduran/yslow/wiki/PhantomJS" target="_blank">Yslow/PhantomJs</a> version. Sitespeed uses it own ruleset of best practice performance rules, and the code can be found  <a href="https://github.com/soulgalore/yslow/blob/master/src/common/rulesets/ruleset_sitespeed.js" target="_blank">here</a>.</dd>
+      <dt>PhantomJS</dt>
+      <dd><a href="http://phantomjs.org/" target="_blank">PhantomJS</a> is a headless WebKit with JavaScript API. It is really cool product where you can do browser things without a browser. You need to have it installed to be able to run sitespeed.io.</dd>
+      <dt>Twitter Bootstrap</dt>
+      <dd><a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a> is a front end framework to create nice looking HTML, all the front end of the result pages produced by sitespeed are built with Bootstrap.</dd>
+      <dt>Java 1.6</dt>
+      <dd>You need to have Java 1.6 (or higher) installed to be able to run sitespeed.io, because many components used by sitespeed.io are written in Java.</dd>
+      <dt>HTMLCompressor</dt>
+      <dd>The <a href="http://code.google.com/p/htmlcompressor/" target="_blank">HTMLCompressor</a> Compress/minifies the HTML result pages, to do them as clean & small as possible.</dd>
+      <dt>Velocity</dt>
+      <dd><a href="http://velocity.apache.org/" target="_blank">Apache Velocity</a> is an (old but great  Java template engine, the reason it is used, it because gives the possibility of getting hold of whatever Java library that is needed to do things in the front end. The statistics calculated on the summary page (median & averages) are using the Apache Commons <a href="http://commons.apache.org/math/" target="_blank">Math library</a>. </dd>
+      <dt>Crawler</dt>
+      <dd>This is a simple  <a href="https://github.com/soulgalore/crawler" target="_blank">Java crawler</a> that output all links within a domain to a file, it can follow a specific path or make sure urls containing X not will be fetched. In the backend it uses Java:s best HTTP framework: <a href="http://hc.apache.org/" target="_blank">HttpComponents</a> that makes sure it can pretty sure do whatever you want.</dd>
+      <dt>XMLToVelocity</dt>
+      <dd><a href="https://github.com/soulgalore/xml-velocity" target="_blank">XMLToVelocity</a> is a small Java component that parses a XML-file with a Velocity template.</dd>
+      <dt>Tablesorter</dt>
+      <dd><a href="http://tablesorter.com/docs/" target="_blank">Tablesorter</a> is a flexible jQuery table column sorter.</dd>
+      <dt>Stupid Table Plugin</dt>
+      <dd><a href="https://github.com/joequery/Stupid-Table-Plugin" target="_blank">Stupid Table Plugin</a> is a really small table column sorter (yes two different is used today, one needs to go away).</dd>
+      
+      <dt>Bash</dt>
+      <dd>The main controller script of sitespeed is a bash script.</dd>
+        <dt>Linux/Unix</dt>
+        <dd>Yes, it runs only on Linux/Unix systems.</dd>
+        <dt>Curl</dt>
+        <dd>Curl is used to fetch the time to first byte and the size of a gzipped page.</dd>
+        <dt>xsltproc</dt>
+        <dd>xsltproc is used to match the junit xsl file with the xml result from the analyze to create the junit xml file</dd>
+        </dl>
+      </div>
+</div>
+</div>
+
+<div class="section">
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="page-header">
+      <h2 id="feature" style="word-wrap: break-word;">Create a new feature/improvement request</h2>
+    </div>
+    <p>
+      If you have ideas of how sitespeed.io can be improved or if you have any features that you think is missing, please add it to the <a href="https://github.com/soulgalore/sitespeed.io/issues?labels=&milestone=&page=1&state=open" target="_blank">issue list</a>.
+    </p>
+
+    </div>
+</div>
+</div>
+
+<div class="section">
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="page-header">
+      <h2 id="bug">Report a bug</h2>
+    </div>
+    <p style="word-wrap: break-word;">
+     If you find a bug, go through the current known bug list <a href="https://github.com/soulgalore/sitespeed.io/issues?labels=bug&state=open" target="_blank">https://github.com/soulgalore/sitespeed.io/issues?labels=bug&state=open</a>. If it doesn't exist there, please add it!
+    </p>
+
+    </div>
+</div>
+</div>
+
+<div class="section">
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="page-header">
+      <h2 id="addrule">Add your own rules</h2>
+    </div>
+    <p style="word-wrap: break-word;">
+      Sitspeed uses <a href="http://yslow.org/" target="_blank">Yslow</a> as the engine for creating and managing the rules that decides how good the web page is optimized for performance.  <a href="https://twitter.com/stoyanstefanov" target="_blank">Stoyan Stefanov</a> has written three good blog posts of how you develop and write rules for Yslow:
+    </p>
+      <ul>
+        <li><a href="http://www.phpied.com/yslow-development-getting-started/" target="_blank">Getting started</a></li>
+        <li><a href="http://www.phpied.com/yslow-development-setup/" target="_blank">Setup</a></li>
+        <li><a href="http://www.phpied.com/yslow-development-custom-rulesets/" target="_blank">Custom ruleset</a></li>
+      </ul>
+
+      <p>
+      To do it for sitespeed, this is what you need:
+      </p>
+      <ol>
+        <li><p>Clone the project: 
+          <pre>git clone git@github.com:soulgalore/yslow.git</pre>
+        </p>
+        </li>
+        <li><p style="word-wrap: break-word;">There are two files that you need to change, first the rule file, where you actually add your own rule:
+          <a href="https://github.com/soulgalore/yslow/blob/master/src/common/rulesets/ruleset_sitespeed.js" target="_blank">https://github.com/soulgalore/yslow/blob/master/src/common/rulesets/ruleset_sitespeed.js</a>. </p>
+
+          <p>You need to do two changes: Add your rule <i>YSLOW.registerRule(...)</i> and register your rule to the ruleset <i>YSLOW.registerRuleset(...)</i></p>
+          <p>In this example, I will add a rule called <b>cssprint</b> that will check for css files used only for printing the page:</p>
+<pre class="prettyprint">
+YSLOW.registerRule({
+id: 'cssprint',
+name: 'Do not load print stylesheets, use @media type print instead',
+info: 'Loading a specific stylesheet for printing slows down the page, ' +
+      'even though it is not used',
+category: ['css'],
+config: {points: 20},
+url: 'http://sitespeed.io/rules/#cssprint',
+
+lint: function (doc, cset, config) {
+var i, media, score,url,
+      offenders = [],
+      hash = {},
+      comps = cset.getComponentsByType('css'),
+      links = doc.getElementsByTagName('link');
+
+       for (i = 0, len = links.length; i < len; i += 1) {
+
+        if (links[i].media === 'print') {
+          url = links[i].href;           
+          hash[url] = 1;
+        }
+      }
+
+   for (var i = 0; i < comps.length; i++) {
+    if (hash[comps[i].url]) {
+      offenders.push(comps[i]);
+    }
+  }
+    score = 100 - offenders.length * parseInt(config.points, 20);
+    
+    return {
+    score: score,
+    message: (offenders.length > 0) ? YSLOW.util.plural(
+        'There %are% %num% print css files included on the page, that should be @media query instead',
+        offenders.length
+    ) : '',
+    components: offenders
+  };
+ }
+});  
+</pre>
+
+<p>When you have written your rule, register it to the ruleset and give it a proper weight (the lines with <b>cssprint</b> are the new ones, the rest exists already:</p>
+
+<pre>
+YSLOW.registerRuleset({ 
+  id: 'sitespeed.io-X.Y',
+  name: 'Sitespeed.io rules vX.Y',
+  rules: {
+  ...
+ cssprint: {},
+ ...
+ weights: {
+ ...
+ cssprint: 3,
+ ...
+ </pre>
+
+        </li>
+
+        <li><p style="word-wrap: break-word;">The next step is adding the documentation for the rule, you do that in the file: <a href="https://github.com/soulgalore/yslow/blob/master/src/common/doc.js" target="_blank">https://github.com/soulgalore/yslow/blob/master/src/common/doc.js</a>.</p> <p>You add one row where you put in the rule info:
+          <pre>YSLOW.doc.addRuleInfo('rulename','title','description')</pre>
+
+          For the <b>cssprint</b> rule, it looks like this:
+          <pre>YSLOW.doc.addRuleInfo('cssprint','Avoid loading specific css for print','Loading a specific stylesheet for print, can block rendering in your browser (depending on browser version) and will for almost all browsers, block the onload event to fire (even though the print stylesheet is not even used!).');
+          </pre>
+
+         It is used when you run sitespeed to create the rule definition HTML file that is put into the results, so you always can backtrack which rules you use. </p>
+        </li>
+        <li>Create the new Yslow javascript file: <pre>make phantomjs</pre></li>
+        <li>Test that it works on one url (standing in root for Yslow): <pre>phantomjs build/phantomjs/yslow.js d -r sitespeed.io-1.6 -f xml http://yoururl.com</pre></li>
+        <li>Move the newly created rulefile into your dependencies directory for sitespeed, on my local it looks like this:
+          <pre>cp build/phantomjs/yslow.js ../sitespeed.io/dependencies/yslow-3.1.5-sitespeed.js</pre>
+         </li>
+         <li>Run sitespeed: <pre>./sitespeed.io -u http://yoururl.com</pre></li>
+       </ol>
+          
+
+    </div>
+</div>
+</div>
+
+
+        
+
+

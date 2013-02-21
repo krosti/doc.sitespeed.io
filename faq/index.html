@@ -1,0 +1,60 @@
+---
+layout: default
+title: Frequently asked questions for sitespeed.io
+description: Questions and answers for sitespeed.io.
+author: Peter Hedenskog
+keywords: sitespeed.io, faq, questions, frequently, asked 
+nav: faq
+
+---
+<div class="page-header">
+  <h1>FAQ</h1>
+</div>
+
+<div class="section">
+  <div class="row-fluid">
+    
+    <div class="span12">
+      <section id="knownbugs">
+        <h3>Q: Are there any known bugs?</h3>
+        <p style="word-wrap: break-word;">Checkout the <a href="https://github.com/soulgalore/sitespeed.io/issues?labels=bug&state=open">https://github.com/soulgalore/sitespeed.io/issues?labels=bug&state=open</a> list for latest updated list of defects within sitespeed.</p>
+	<p>There are a couple of inherited bugs from PhantomJs/Yslow:
+	<ul>
+	  <li>Favicon don't fetch the right response cache headers (so right now in sitespeed, the favicon rule is disabled)</li>
+	  <li>The gzipped size of a component is not working so right now the unzipped size is showed everywhere. See original defect <a href="http://code.google.com/p/phantomjs/issues/detail?id=156">here</a>. However, the document size in sitespeed is displayed correctly.</li>
+  </ul>
+  
+	<p>If you found other bugs, please report them <a href="https://github.com/soulgalore/sitespeed.io/issues">here</a>.</p>
+        </section> 
+
+
+      <section id="addrules">
+        <h3>Q: I want to add my own rules, how do I do that?</h3>
+        <p>Check out the <a href="/documentation/#addrule">documentation</a>.</p>
+        </section> 
+
+        <section id="skip">
+        <h3>Q: Is there a option to exclude a given directory?</h3>
+        <p>Yes, kind of, checkout <a href="http://sitespeed.io/documentation/#run">http://sitespeed.io/documentation/#run</a>. Use the option <strong>-s</strong> that will skip urls that contains the specified text in the path.
+</p>
+        </section>
+
+        <section id="onepage">
+            <h3>Q: I want to test only one page, how do I do that?</h3>
+        <p><pre>$ ./sitespeed.io -u http://mysite.com -d 0</pre></p>
+        </section> 
+      
+      <section id="slowness">
+	<h3>Q: It takes like forever to to analyze my site, what should I do?</h3>
+	<p>You can change the amount of simultaneously processes that analyze your site (default is five). Increase the amount of processes with the <strong>p</strong> switch:</p>
+	<pre>$ ./sitespeed.io -u http://mysite.com -p 10</pre>
+	</section>
+
+      <section id="windows">
+        <h3>Q: Can I run sitespeed on Windows?</h3>
+        <p>You can use <a href="http://code.google.com/p/msysgit/downloads/list?q=label:Featured">Git Bash</a>.</p>
+        </section>
+
+  </div>
+</div>
+</div>

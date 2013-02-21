@@ -1,0 +1,103 @@
+---
+layout: default
+title: Sitespeed.io - Analyze your website speed and performance
+description: Sitespeed.io is an open source tool that helps you analyze and optimize your website speed and performance, based on performance best practices. Run it locally or use it in your continous integration. Download or fork it on Github!
+author: Peter Hedenskog
+keywords: sitespeed.io, wpo, fast, site, speed, web performance optimization, analyze, best practices, continous integration
+nav: start
+image: http://sitespeed.io/img/sitespeed-twitter2.gif
+---
+<div class="page-header">
+  <h1>How speedy is your website?</h1>
+</div>
+
+<div class="section">
+  <div class="row-fluid">
+    <div class="span6">
+      <h2>Analyze your website speed and performance</h2>
+      <p>
+        Sitespeed.io is an open source tool that helps you analyze and optimize your website <strong>speed</strong> and <strong>performance</strong> based on <strong>performance best practices</strong>. It will collect data from multiple pages on your website (crawling from a start point), analyze the pages using performance best practices <a href="/rules/">rules</a>, and output the result as HTML-files or JUnit XML. You can see real life examples of analyzed sites <a href="/example/">here</a>.
+      </p> 
+      <p>Sitespeed.io uses up to date performance best practices. For example: investigating the critical rendering path, looking for front end single point of failures, avoid DNS lookups if the page has few requests. See the full list of the <a href="/rules/">rules</a>.
+      </p>
+      </div>
+      <div class="span6">
+        <h2>Run</h2>
+	<p>
+            1. <a href="http://phantomjs.org/download.html" target="_blank">Install PhantomJs (1.8.1)</a>
+        </p>
+        <p>2. <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html" target="_blank">Install/use Java 1.6 (or higher)</a></p>
+
+        <p>
+          3. Clone the project from Github
+	 </p>
+          <pre>git clone git@github.com:soulgalore/sitespeed.io.git</pre>
+   
+
+	<p>
+	  or <a href="http://sitespeed.io/download/sitespeed.io-1.7.tar.gz" class="btn btn-success btn-large" onclick="_gaq.push(['_trackEvent','Start page action', 'Download', 'Download 1.7']);">
+                 download
+                 <small>(v1.7)</small>
+               </a> the zip.
+	  </p>
+	<p>
+          4. Run the script
+	</p>
+         <pre>$ ./sitespeed.io -u http://yoursite.com </pre>
+     
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="row-fluid">
+      <div class="span6">
+        <h2>Release notes</h2>
+<p><a href="/release-notes/1.7/">The 1.7 release notes</a>.</p>
+
+	<h2>Development</h2>
+<p>Checkout issues and coming features at
+  <a href="https://github.com/soulgalore/sitespeed.io/issues">Github</a> and follow sitespeed.io on <a href="https://twitter.com/SiteSpeedio">Twitter</a> to get information about new releases.</p>
+<p>
+ Sitspeed.io is developed & tested on Mac OS X 10.8.2 & Ubuntu Linux 12.04.
+</p>
+
+<h2>Report a bug</h2>
+        <p>Report a bug <a href="https://github.com/soulgalore/sitespeed.io/issues?labels=bug&page=1&state=open" target="_blank">here</a>.</p>
+
+      </div>
+
+      <div class="span6">
+	<h2>License</h2>
+	<p>Sitespeed.io is released under the terms of the <a href="https://github.com/soulgalore/sitespeed.io/blob/master/LICENSE" target="_blank">Apache License Version 2.0</a></p>
+        <h2>Credit</h2>
+        <p>
+          Sitespeed.io is created by <a href="http://peterhedenskog.com" target="_blank">Peter Hedenskog</a> with the help from 
+          the <a href="https://github.com/soulgalore/sitespeed.io/blob/master/CONTRIBUTORS.md" target="_blank">contributors</a> (massive love, become a <a href="https://github.com/soulgalore/sitespeed.io/" target="_blank">contributor</a> you too!):</p>
+	  <ul>
+	    <li><strong>Tom Sutton</strong> (<a href="https://github.com/tomsutton1984" target="_blank">@tomsutton1984</a>)</li>
+	    <li><strong>Roberto Maisl</strong> (<a href="https://github.com/rob-m" target="_blank">@rob-m</a>)</li>
+	    <li><strong>Guillaume Lederrey</strong> (<a href="https://github.com/gehel" target="_blank">@gehel</a>)</li>
+	    <li><strong>Tobias Lidskog</strong>(<a href="https://github.com/tobli" target="_blank">@tobli</a>)</li>
+	  </ul>
+
+       <p>It is built on top of three fantastic tools/products, thank you guys for providing these great things:
+	  </p>
+          <ul>
+            <li> <strong>Marcel Duran</strong> (and all other giants involved) - 
+              <a href="https://github.com/marcelduran/yslow/" target="_blank">Yslow</a>
+            </li>
+            <li> <strong>Ariya Hidayat</strong> - 
+              <a href="https://github.com/ariya/phantomjs" target="_blank">PhantomJs</a>
+            </li>
+            <li>
+              <strong>Mark Otto</strong>
+              &
+              <strong>Jacob Thornton</strong> - 
+               <a href="https://github.com/twitter/bootstrap/" target="_blank">Twitter Bootstrap</a>
+            </li>
+          </ul>
+	  <p>Also extra thanks to <strong>Sergiy Kovalchuk</strong> for the <a href="http://code.google.com/p/htmlcompressor/" target="_blank">HTMLCompressor</a>, it is used to compress the result HTML produced by sitespeed.io.</p>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,81 @@
+---
+layout: default
+title: Sitespeed.io - Release notes 1.7
+description: Sitespeed.io 1.7 release contains support for using sitespeed in your continuous integration tool.
+author: Peter Hedenskog
+keywords: sitespeed.io, release, release-notes, 1.7, jenkins, travis
+nav: 
+image: http://sitespeed.io/img/sitespeed-1.7-twitter.png
+twitterdescription: With the new release you can output JUnit XML, so that that the sitespeed tests can be included in your continuous integration tool.
+---
+<div class="page-header">
+  <h1>Sitespeed.io 1.7 release notes</h1>
+</div>
+
+<h3>Output as JUnit XML</h3>
+<p>Sitespeed can now output JUnit XML that you can use in your continuous integration tool. With that, you can for every build test your site against 
+sitespeed rules! In the  <a href="/documentation/#junit">documentation</a> you will see how to do it for <a href="/documentation/#jenkins">Jenkins</a> & <a href="/documentation/#travis">Travis</a> (Travis don't have full support yet for JUnit XML but you can still make sure that builds get broken if you violate the rules).
+</p>
+<p>
+You can specify your own limits of when you want the tests to fail: for the overall score and the limit individual tests. And you can of course skip tests.
+</p>
+
+<h3>Feed sitespeed.io with a list of URL:s instead of crawl a site</h3>
+<p>For some sites, crawling the page isn't the best thing, you want to test a couple of the most used pages (some of them longer down in the path tree), that's why you now can supply a list of url:s to sitespeed to test.
+</p>
+<p>The list is a plain text file with one url on each line. The first url will gave the name of the whole test (= the same as the first url to crawl). The file needs to look like this:
+</p>
+<pre>
+http://peterhedenskog.com/
+http://peterhedenskog.com/work/
+http://peterhedenskog.com/music/
+</pre>
+Check the <a href="/documentation/#run">doc</a> for of how to do it. Heads up: The parameter to supply a file is <strong>f</strong> meaning that the old functionality "follow only the oath when crawling" has changed to <strong>c</strong> so please make sure you change that if you use that functionality.
+
+<h3>Small fixes</h3>
+
+<div class="row-fluid">
+<ul class="thumbnails">
+  <li class="span4">
+    <div class="thumbnail">
+      <a href="jspercentage.jpg"><img src="jspercentage.jpg" alt="Showing the number of domains used for that page"></a>
+      <h4>Total domains used</h4>
+      <p>Showing the number of domains used for that page.</p>
+    </div>
+  </li>
+
+<li class="span4">
+    <div class="thumbnail">
+      <a href="jscsssizes.png"><img src="jscsssizes.png" alt="Showing the percantage of assets that are cacheable"></a>
+      <h4>Cacheable assets</h4>
+      <p>Showing the percantage of assets that are cacheable</p>
+    </div>
+  </li>
+<li class="span4">
+    <div class="thumbnail">
+      <a href="sizes.png"><img src="sizes.png" alt="Show the amount of assets that don't have an exipre header (will NOT be cached)"></a>
+      <h4>Assets without expires</h4>
+      <p>Show the amount of assets that don't have an exipre header (will NOT be cached).</p>
+    </div>
+  </li>
+</ul>
+</div>
+
+<ul>
+<li>Page summary: Added new max size of a document for getting a warning, now using stats from HTTPArchive</li>
+<li>Page summary & site summary: Removed prime cache values, they wasn't actually always right</li>
+<li>Removed Yslow rule <em>ynumreq</em> and created three new ones in order to get clearer JUnit xml result (and also only check for sync js): <em>cssnumreq</em>, <em>cssimagesnumreq</em> & <em>jsnumreq</em></li>
+</ul>  
+
+
+<h3>Bug fix</h3>
+<ul>
+	<li>If a max age HTTP cache header was missing the cache time, the cache time was set to 0 instead of checking if a Expire header exists.</li>
+	<li>If an asset was missing expire headers, it inherited the last one assets with an expire date</li>
+</ul>
+
+</p>
+<hr>
+<p>	
+See the <a href="https://github.com/soulgalore/sitespeed.io/blob/master/CHANGELOG">changelog</a> for changes done in the past and the next <a href="https://github.com/soulgalore/sitespeed.io/issues?milestone=16&state=open">milestone</a> what will come in the next release.
+</p>
