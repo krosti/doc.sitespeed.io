@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>{{ page.title }}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	<meta name="description" content="{{ page.description }}">
+	<meta name="keywords" content="{{ page.keywords }}">
+	<meta name="author" content="{{ page.author }}">
+	
+	<link rel="canonical" href="http://sitespeed.io{{ page.url | replace:'index.html','' }}"/>
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:site" content="@sitespeedio">
+	<meta name="twitter:creator" content="@soulislove">
+	<meta name="twitter:url" content="http://sitespeed.io{{ page.url | replace:'index.html','' }}">
+	<meta name="twitter:title" content="{{ page.title | truncate:70  }}">
+	
+	{% if page.twitterdescription %}
+	<meta name="twitter:description" content="{{ page.twitterdescription | truncate:200 }}">
+	{% else %}
+	<meta name="twitter:description" content="{{ page.description | truncate:200 }}">
+	{% endif %}
+
+	{% if page.image %}
+	<meta name="twitter:image" content="{{ page.image }}">
+	{% endif %}
+
+	<meta property="og:image" content="http://sitespeed.io/img/sitespeed-400x400.jpg">
+	<meta property="og:title" content="{{ page.title }}">
+	<meta property="og:url" content="http://sitespeed.io{{ page.url | replace:'index.html','' }}">
+	<meta property="og:site_name" content="Sitespeed.io - How speedy is your website">
+	<meta property="og:description" content="{{ page.description | truncate:200 }}">
+	
+	<link rel="shortcut icon" href="/img/ico/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/ico/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img//ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/ico/apple-touch-icon-72-precomposed.png">
+
+	<style>{% include all.css %}</style>
+	{% include analythics %}
+</head>
+<body>
+	{% include header.html %}
+	<div class="container-fluid page">
+		<div class="wrapper">
+		{{ content }}
+	</div>
+{% include footer.html %}
+	</div>
+</body>
+</html>
