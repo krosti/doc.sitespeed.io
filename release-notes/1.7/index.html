@@ -33,35 +33,10 @@ http://peterhedenskog.com/music/
 Check the <a href="/documentation/#run">doc</a> for of how to do it. Heads up: The parameter to supply a file is <strong>f</strong> meaning that the old functionality "follow only the oath when crawling" has changed to <strong>c</strong> so please make sure you change that if you use that functionality.
 
 <h3>Small fixes</h3>
-
-<div class="row-fluid">
-<ul class="thumbnails">
-  <li class="span4">
-    <div class="thumbnail">
-      <a href="jspercentage.jpg"><img src="jspercentage.jpg" alt="Showing the number of domains used for that page"></a>
-      <h4>Total domains used</h4>
-      <p>Showing the number of domains used for that page.</p>
-    </div>
-  </li>
-
-<li class="span4">
-    <div class="thumbnail">
-      <a href="jscsssizes.png"><img src="jscsssizes.png" alt="Showing the percantage of assets that are cacheable"></a>
-      <h4>Cacheable assets</h4>
-      <p>Showing the percantage of assets that are cacheable</p>
-    </div>
-  </li>
-<li class="span4">
-    <div class="thumbnail">
-      <a href="sizes.png"><img src="sizes.png" alt="Show the amount of assets that don't have an exipre header (will NOT be cached)"></a>
-      <h4>Assets without expires</h4>
-      <p>Show the amount of assets that don't have an exipre header (will NOT be cached).</p>
-    </div>
-  </li>
-</ul>
-</div>
-
 <ul>
+<li>Page summary: Show the number of domains used for that page</li>
+<li>Page summary: Show the percantage of assets that are cacheable</li>
+<li>Page summary: Show the amount of assets that don't have an exipre header (will NOT be cached)</li>	
 <li>Page summary: Added new max size of a document for getting a warning, now using stats from HTTPArchive</li>
 <li>Page summary & site summary: Removed prime cache values, they wasn't actually always right</li>
 <li>Removed Yslow rule <em>ynumreq</em> and created three new ones in order to get clearer JUnit xml result (and also only check for sync js): <em>cssnumreq</em>, <em>cssimagesnumreq</em> & <em>jsnumreq</em></li>
