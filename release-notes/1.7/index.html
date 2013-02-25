@@ -20,6 +20,10 @@ the rules! In the  <a href="/documentation/#junit">documentation</a> you will se
 You can specify your own limits of when you want the tests to fail: for the overall score and the limit individual tests. And you can of course skip tests. Using Jenkins, you will get information per page, and per test, so you easy can see what is failing.
 </p>
 
+<p>
+	<a href="/documentation/jenkins-test-all-pages.jpg"><img src="/documentation/jenkins-test-all-pages.jpg"/></a>
+	</p>
+
 <h3>Feed sitespeed.io with a list of URL:s instead of a crawl</h3>
 <p>For some sites, crawling the page isn't the best thing, you want to test a couple of the most used pages (some of them longer down in the path tree), so now you can supply a list of url:s to sitespeed to test.
 </p>
@@ -30,17 +34,50 @@ http://peterhedenskog.com/
 http://peterhedenskog.com/work/
 http://peterhedenskog.com/music/
 </pre>
-Check the <a href="/documentation/#run">doc</a> of how to do it. Heads up: The parameter to supply a file is <strong>f</strong> meaning that the old functionality "follow only the oath when crawling" has changed to parameter <strong>c</strong> so please make sure you change that if you use that functionality.
+<p>Check the <a href="/documentation/#run">doc</a> of how to do it. Heads up: The parameter to supply a file is <strong>f</strong> meaning that the old functionality "follow only the oath when crawling" has changed to parameter <strong>c</strong> so please make sure you change that if you use that functionality.
+</p>
+
+<h3>More fixes</h3>
+<div class="row-fluid">
+<ul class="thumbnails">
+<li class="span3">
+    <div class="thumbnail">
+      <a href="dom.jpg"><img src="dom.jpg" alt="DOM elements on summary page"></a>
+      <h4>DOM elements</h4>
+      <p>Added average & median number of <a href="dom.jpg">DOM elements</a> on site summary and specific number on page.</p>
+    </div>
+  </li>
+  <li class="span3">
+    <div class="thumbnail">
+      <a href="expires.jpg"><img src="expires.jpg" alt="No expire header"></a>
+      <h4>Missing expire</h4>
+      <p>Show the amount of assets that don't have an exipre header, both on summary and pages summary.</p>
+    </div>
+  </li>
+
+<li class="span3">
+    <div class="thumbnail">
+      <a href="cacheable.jpg"><img src="cacheable.jpg" alt="Cacheable assets"></a>
+      <h4>Cacheable assets</h4>
+      <p>Show the percentage of assets that are cacheable.</p>
+    </div>
+  </li>
+<li class="span3">
+    <div class="thumbnail">
+      <a href="summary.jpg"><img src="summary.jpg" alt="New page summary"></a>
+      <h4>New page summary</h4>
+      <p>See cache, content, time, content-type and domain section.</p>
+    </div>
+  </li>
+</ul>
+</div>
+
 
 <h3>Small fixes</h3>
 <ul>
-<li>Page summary: Show the number of domains used for that page</li>
-<li>Page summary: Show the percentage of assets that are cacheable</li>
-<li>Page summary: Show the amount of assets that don't have an exipre header (will NOT be cached)</li>	
 <li>Page summary: Added new max size of a document for getting a warning, now using stats from HTTPArchive</li>
 <li>Page summary & site summary: Removed prime cache values, they wasn't actually always right</li>
 <li>Removed Yslow rule <em>ynumreq</em> and created three new ones in order to get clearer JUnit xml result (and also only check for sync js): <em>cssnumreq</em>, <em>cssimagesnumreq</em> & <em>jsnumreq</em></li>
-<li>Added average & median number of DOM elements on site summary and specific number on page</li>
 <li>Added response headers info on assets page (missing in last release)</li>
 </ul>  
 
