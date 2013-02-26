@@ -12,7 +12,7 @@ twitterdescription: With the new release you can output JUnit XML, so that that 
   <h1>Sitespeed.io 1.7 release notes</h1>
 </div>
 
-<h3>Output as JUnit XML</h3>
+<h3>Sitespeed.io + Jenkins = love</h3>
 <p>Sitespeed.io can now output JUnit XML that you can use in your continuous integration tool. With that, you can for every build test your site against 
 the rules! In the  <a href="/documentation/#junit">documentation</a> you will see how to do it for <a href="/documentation/#jenkins">Jenkins</a> & <a href="/documentation/#travis">Travis</a> (Travis don't have full support yet for JUnit XML but you can still make sure that builds get broken if you violate the rules).
 </p>
@@ -24,10 +24,10 @@ You can specify your own limits of when you want the tests to fail: for the over
 	<a href="/documentation/jenkins-test-all-pages.jpg"><img src="/documentation/jenkins-test-all-pages.jpg"/></a>
 	</p>
 
-<h3>Feed sitespeed.io with a list of URL:s instead of a crawl</h3>
+<h3>Feed the beast with a list of URL:s</h3>
 <p>For some sites, crawling the page isn't the best thing, you want to test a couple of the most used pages (some of them longer down in the path tree), so now you can supply a list of url:s to sitespeed to test.
 </p>
-<p>The list is a plain text file with one url on each line. The first url will gave the name of the whole test (= the same as the first url to crawl). The file needs to look like this:
+<p>The list is a plain text file with one url on each line and the first url will give the name of the whole test. Here's an example of how the file need to look like:
 </p>
 <pre>
 http://peterhedenskog.com/
@@ -37,36 +37,36 @@ http://peterhedenskog.com/music/
 <p>Check the <a href="/documentation/#run">doc</a> of how to do it. Heads up: The parameter to supply a file is <strong>f</strong> meaning that the old functionality "follow only the oath when crawling" has changed to parameter <strong>c</strong> so please make sure you change that if you use that functionality.
 </p>
 
-<h3>More fixes</h3>
+<h3>New functionality</h3>
 <div class="row-fluid">
 <ul class="thumbnails">
 <li class="span3">
     <div class="thumbnail">
       <a href="dom.jpg"><img src="dom.jpg" alt="DOM elements on summary page"></a>
       <h4>DOM elements</h4>
-      <p>Added average & median number of <a href="dom.jpg">DOM elements</a> on site summary and specific number on page.</p>
+      <p>You can now see the average & median number of <a href="dom.jpg">DOM elements</a> on site summary and for a specific page.</p>
     </div>
   </li>
   <li class="span3">
     <div class="thumbnail">
       <a href="expires.jpg"><img src="expires.jpg" alt="No expire header"></a>
       <h4>Missing expire</h4>
-      <p>Show the amount of assets that don't have an exipre header, both on summary and detailed site report.</p>
+      <p>See how many assets on your site that is missing an expire header (I hope it is none)</p>
     </div>
   </li>
 
 <li class="span3">
     <div class="thumbnail">
-      <a href="cacheable.jpg"><img src="cacheable.jpg" alt="Cacheable assets"></a>
-      <h4>Cacheable assets</h4>
-      <p>Show the percentage of assets that are cacheable.</p>
+      <a href="cacheable.jpg"><img src="cacheable.jpg" alt="Cached assets"></a>
+      <h4>Cached assets</h4>
+      <p>How many of your assets are beeing cached?</p>
     </div>
   </li>
 <li class="span3">
     <div class="thumbnail">
       <a href="summary.jpg"><img src="summary.jpg" alt="New page summary"></a>
       <h4>New page summary</h4>
-      <p>See cache, content, time, content-type and domain section.</p>
+      <p>The summary has been redesigned, now you can see cache, content, time, content-type and domain metrics</p>
     </div>
   </li>
 </ul>
@@ -75,16 +75,16 @@ http://peterhedenskog.com/music/
 
 <h3>Small fixes</h3>
 <ul>
-<li>Page summary: Added new max size of a document for getting a warning, now using stats from HTTPArchive</li>
-<li>Page summary & site summary: Removed prime cache values, they wasn't actually always right</li>
-<li>Removed Yslow rule <em>ynumreq</em> and created three new ones in order to get clearer JUnit xml result (and also only check for sync js): <em>cssnumreq</em>, <em>cssimagesnumreq</em> & <em>jsnumreq</em></li>
-<li>Added response headers info on assets page (missing in last release)</li>
+<li>The max size of a document for getting a warning has been changed, now using statistics from HTTPArchive. </li>
+<li>The prime cache values has been removed from site summary & site detailed report, because they wasn't actually showing correct values</li>
+<li>The Yslow rule <em>ynumreq</em> has been removed and replaced by three new ones in order to get clearer JUnit xml result: <em>cssnumreq</em>, <em>cssimagesnumreq</em> & <em>jsnumreq</em></li>
+<li>You can now see the response headers info on the assets page</li>
 </ul>  
 
 
-<h3>Bug fix</h3>
+<h3>Bug fixes</h3>
 <ul>
-	<li>If a max age HTTP cache header was missing the cache time, the cache time was set to 0 instead of checking if a Expire header exists.</li>
+	<li>If a max age HTTP cache header was missing the cache time, the cache time was set to 0 instead of checking if an Expire header exists.</li>
 	<li>If an asset was missing expire headers, it inherited the last one assets with an expire date</li>
 </ul>
 
