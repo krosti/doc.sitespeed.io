@@ -560,7 +560,7 @@ YSLOW.registerRuleset({
          It is used when you run sitespeed to create the rule definition HTML file that is put into the results, so you always can backtrack which rules you use. </p>
         </li>
         <li>Create the new Yslow javascript file: <pre>make phantomjs</pre></li>
-        <li>Test that it works on one url (standing in root for Yslow): <pre>phantomjs build/phantomjs/yslow.js d -r sitespeed.io-1.6 -f xml http://yoururl.com</pre></li>
+        <li>Test that it works on one url (standing in root for Yslow): <pre>phantomjs build/phantomjs/yslow.js d -r sitespeed.io-1.7 -f xml http://yoururl.com</pre></li>
         <li>Move the newly created rulefile into your dependencies directory for sitespeed, on my local it looks like this:
           <pre>cp build/phantomjs/yslow.js ../sitespeed.io/dependencies/yslow-3.1.5-sitespeed.js</pre>
          </li>
