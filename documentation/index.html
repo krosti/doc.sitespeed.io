@@ -58,6 +58,8 @@ $ Analyzing http://www.cybercom.com/Investor--Press/
 $ Analyzing http://www.cybercom.com/Solutions--services/
 $ ...
 $ Create result.xml
+$ Create the summary.xml
+$ Create the summary-details.html
 $ Create the pages.html
 $ Create the summary index.html
 $ Create the assets.html
@@ -71,29 +73,35 @@ $ Finished
         <pre>
 sitespeed-result
 |
-`--sitespeed-www.cybercom.com-2013-01-02-22-36-36
-   |
-   | -- css
-   |
-   | -- data
-   |
-   | -- img
-   | -- (images)
-   |
-   | -- js
-   |
-   | -- pages
-   |
-   | -- pages.html
-   | -- rules.html
-   | -- assets.html
-   | -- (errorurls.html)
-   ` -- index.html
+`--www.cybercom.com
+    `
+    2014-04-16-22-36-36
+    |
+    | -- css
+    |
+    | -- data
+      | -- result.xml
+      ` -- summary.xml
+    |
+    | -- img
+    | -- (images)
+    |
+    | -- js
+    |
+    | -- pages
+    |
+    | -- pages.html
+    | -- rules.html
+    | -- assets.html
+    | -- (errorurls.html)
+    ` -- index.html
 </pre>
 
       <p>
         The <strong>data</strong>
-        directory hold all xml files that's the result from the analyze (the raw data). <strong>Pages</strong>
+        directory hold all xml files that's the result from the analyze (the raw data). The <strong>result.xml</strong> contains all the analyzed data for all pages. The 
+        <strong>summary.xml</strong> is the XML representation of the summary page. 
+         <strong>Pages</strong>
         hold the result (as HTML) for all unique page tests. The
         <strong>pages.html</strong>
         is all pages data, summarized in one page.  The
