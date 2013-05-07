@@ -46,11 +46,11 @@ twitterdescription: Add your own rules to sitespeed.io is easy, because of the u
       <h2 id="workflow">Workflow</h2>
       </div>
       <p>This is what will happen when you run sitespeed.io, first start the script:
-	</p>
+  </p>
         <pre>$ ./sitespeed.io -u http://www.cybercom.com/en/</pre>
           <p>
         The script will log what is happening, it will look  something like this:
-	</p>
+  </p>
     <pre>
 $ Will crawl from start point http://www.cybercom.com/en/ with User-Agent Mozilla/6.0 and viewport 1280x800 with crawl depth 1 ... this can take a while
 $ Fetched 20 pages
@@ -67,7 +67,7 @@ $ Finished
 
       <p>
         It will create the following directory structure (the first directory is named after the site you are testing and when the test was executed):
-	</p>
+  </p>
         <pre>
 sitespeed-result
 |
@@ -100,7 +100,7 @@ sitespeed-result
         <strong>index.html</strong>
         is the summary page, holding information on a high level.
         <strong>rules.html</strong> is a presentation of the rules used to calculate the score for a page. And the images folder is created if you choose to output the summary as png:s. The <strong>errorurls.html</strong> shows the list of url:s that couldn't be fetched (the file will not exist if all url:s could be collected).
-      	The <strong>assets.html</strong> shows the top 200 most used assets across the pages.
+        The <strong>assets.html</strong> shows the top 200 most used assets across the pages.
       </p>
       <p>The workflow is like this:</p>
       <p class="image">
@@ -202,8 +202,8 @@ OPTIONS:
    -t      The proxy type, default is http [optional]
    -a      The user agent, default is "Mozilla/6.0" [optional]
    -v      The view port, the page viewport size WidthxHeight, like 400x300, default is 1280x800 [optional] 
-   -y 	   The compiled yslow file, default is dependencies/yslow-3.1.5-sitespeed.js [optional]
-   -l 	   Which ruleset to use, default is the latest sitespeed.io version [optional]  
+   -y      The compiled yslow file, default is dependencies/yslow-3.1.5-sitespeed.js [optional]
+   -l      Which ruleset to use, default is the latest sitespeed.io version [optional]  
 </pre>
 
     <h3>Standard (fetching one level of pages)</h3>
@@ -258,11 +258,11 @@ http://www.yoursite.com/where/we/are/
 
     <h3 id="proxy">Run  behind a proxy</h3>
     <p>Behind a proxy you can run like this:</p>
-    <pre>$ ./sitespeed.io -u http://yoursite.com/ -a yourproxy.com:portnumber</pre>
+    <pre>$ ./sitespeed.io -u http://yoursite.com/ -x yourproxy.com:portnumber</pre>
 
     <h3 id="useragent">Set the user agent and view port</h3>
     <p>Test as Chrome with a large screen:</p>
-    <pre>$ ./sitespeed.io -u http://yoursite.com/ -g Mozilla/5.0 -v 2560x1440</pre>
+    <pre>$ ./sitespeed.io -u http://yoursite.com/ -a Mozilla/5.0 -v 2560x1440</pre>
 
 
 </div>
@@ -364,7 +364,7 @@ JUNIT_XML=$1
    cat $JUNIT_XML
    exit 1;
  else
- 	echo 'No failures from sitespeed.io'
+  echo 'No failures from sitespeed.io'
  fi   
 </pre>      
       
